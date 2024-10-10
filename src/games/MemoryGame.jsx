@@ -1,21 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react'; 
 import 'animate.css'; // Importar animate.css
 import './MemoryGame.css';
+import Card from './Card'; // Importar el nuevo componente Card
+
+const suits = ['♥️', '♦️', '♣️', '♠️']; // Definir los palos
+const values = ['2', '3', '4', '5', '6', '7', '10', 'J', 'Q', 'K', 'A'];
+
+const generateCards = () => {
+  const selectedValues = [];
+  while (selectedValues.length < 8) {
+    const randomValue = values[Math.floor(Math.random() * values.length)];
+    const randomSuit = suits[Math.floor(Math.random() * suits.length)];
+    const card = { value: randomValue, suit: randomSuit };
+
+    if (!selectedValues.find(c => c.value === card.value && c.suit === card.suit)) {
+      selectedValues.push(card);
+    }
+  }
+
+  const cards = selectedValues.concat(selectedValues) // Duplicar las cartas para tener pares
+    .sort(() => Math.random() - 0.5) // Mezclar las cartas
+    .map((card, index) => ({ id: index + 1, ...card, flipped: false, matched: false, isError: false }));
+  return cards;
+};
 
 export default function MemoryGame() {
-  // Generar 8 pares de cartas
-  const generateCards = () => {
-    const cardValues = 'ABCDEFGH'.split(''); // 8 letras diferentes
-    const cards = cardValues.concat(cardValues) // Duplicar las letras para tener pares
-      .sort(() => Math.random() - 0.5) // Mezclar las cartas
-      .map((value, index) => ({ id: index + 1, value, flipped: false, matched: false, isError: false }));
-    return cards;
-  };
-
   const [cards, setCards] = useState(generateCards);
-  const [flippedCards, setFlippedCards] = useState([]); // Guardar las cartas volteadas
+  const [flippedCards, setFlippedCards] = useState([]);
 
-  // Manejar la lógica de voltear cartas
   const handleFlip = (id) => {
     const flippedCard = cards.find(card => card.id === id);
 
@@ -35,10 +47,9 @@ export default function MemoryGame() {
     }
   };
 
-  // Verificar si las dos cartas volteadas coinciden
   const checkForMatch = (updatedCards, firstCard, secondCard) => {
     if (firstCard.value === secondCard.value) {
-      // Si coinciden, poner borde verde y mantenerlas volteadas
+      // Si coinciden, mantenerlas volteadas
       setCards(prevCards =>
         prevCards.map(card =>
           card.id === firstCard.id || card.id === secondCard.id
@@ -46,7 +57,7 @@ export default function MemoryGame() {
             : card
         )
       );
-      setFlippedCards([]); // Reiniciar las cartas volteadas
+      setFlippedCards([]);
     } else {
       // Si no coinciden, resaltar en rojo y voltearlas después
       setCards(prevCards =>
@@ -65,23 +76,23 @@ export default function MemoryGame() {
               : card
           )
         );
-        setFlippedCards([]); // Reiniciar las cartas volteadas
-      }, 1000); // 1 segundo de espera antes de voltear
+        setFlippedCards([]);
+      }, 1000);
     }
   };
 
   return (
     <div className="memory-game">
       {cards.map(card => (
-        <div 
+        <Card 
           key={card.id} 
-          className={`card animate__animated ${card.flipped ? 'animate__flipInY flipped' : ''} ${card.matched ? 'matched' : ''} ${card.isError ? 'error' : ''}`}
+          value={card.value} 
+          suit={card.suit} 
+          flipped={card.flipped} 
+          matched={card.matched} 
+          isError={card.isError}
           onClick={() => handleFlip(card.id)}
-        >
-          <div>
-            {card.flipped || card.matched ? card.value : ''}
-          </div>
-        </div>
+        />
       ))}
     </div>
   );

@@ -1,0 +1,50 @@
+.card {
+    width: 20px;
+    height: 35px; /* Tamaño fijo para mantener proporciones */
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 24px; /* Tamaño de la fuente */
+    border-radius: 8px;
+    position: relative;
+    box-shadow: inset 0 0 0 0 transparent; /* Sin borde inicial */
+    transition: box-shadow 0.3s ease; /* Transición para suavizar los bordes */
+}
+
+/* El valor superior izquierdo */
+.card-value.top {
+    position: absolute;
+    top: 5px;
+    left: 15px;
+    font-size: 18px; /* Tamaño de fuente para el valor */
+}
+
+/* El valor inferior derecho */
+.card-value.bottom {
+    position: absolute;
+    bottom: 5px;
+    right: 15px;
+    font-size: 18px;
+}
+
+/* El palo en el centro de la carta */
+.card-suit {
+    font-size: 35px; /* Tamaño más grande para el palo en el centro */
+    color: inherit; /* Mantener el color heredado del texto */
+}
+
+/* Estados especiales de la carta */
+.card.flipped {
+    background-color: #555;
+}
+
+.card.matched {
+    box-shadow: inset 0 0 0 4px green; /* Resaltar en verde si coinciden */
+}
+
+.card.error {
+    box-shadow: inset 0 0 0 4px red; /* Resaltar en rojo si no coinciden */
+}

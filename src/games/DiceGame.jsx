@@ -86,7 +86,6 @@ export default function DiceGame() {
     // Renderizar el tablero
     const renderBoard = (board, player) => (
         <div className="board">
-            <h3>Player {player + 1}</h3>
             {board.map((row, rowIndex) => (
                 <div key={rowIndex} className="row">
                     {row.map((cell, colIndex) => (
@@ -104,23 +103,31 @@ export default function DiceGame() {
 
     return (
         <div className="dice-game">
-            <h1>Dice Game</h1>
-            <div className="game-board">
-                {renderBoard(playerBoards[0], 0)}
-                {renderBoard(playerBoards[1], 1)}
-            </div>
 
-            <div className="info">
-                <h2>{isGameOver ? "Game Over!" : `Player ${turn + 1}'s Turn`}</h2>
-                <button onClick={rollDice} disabled={rolledValue !== null || isGameOver}>
-                    Roll Dice
-                </button>
-                {rolledValue && <h3>Rolled: {rolledValue}</h3>}
-                <div className="scores">
-                    <h3>Player 1 Score: {player1Score}</h3>
-                    <h3>Player 2 Score: {player2Score}</h3>
+            <div className="layout">
+                <div className="menu">
+                    <h2>Menu</h2>
+                    {/* Aquí puedes añadir más contenido para el menú */}
+                </div>
+
+                <div className="game-board">
+                    {renderBoard(playerBoards[1], 1)}
+                    {renderBoard(playerBoards[0], 0)}
+                </div>
+
+                <div className="info">
+                    <h2>{isGameOver ? "Game Over!" : `Player ${turn + 1}'s Turn`}</h2>
+                    <button onClick={rollDice} disabled={rolledValue !== null || isGameOver}>
+                        Roll Dice
+                    </button>
+                    {rolledValue && <h3>Rolled: {rolledValue}</h3>}
+                    <div className="scores">
+                        <h3>Player 1 Score: {player1Score}</h3>
+                        <h3>Player 2 Score: {player2Score}</h3>
+                    </div>
                 </div>
             </div>
         </div>
     );
+
 }

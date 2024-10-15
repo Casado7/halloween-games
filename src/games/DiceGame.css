@@ -54,9 +54,12 @@
   color: white;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
+.cell.roll {
+  transform: rotate(360deg);
+}
 .cell:hover {
   background-color: #444;
 }

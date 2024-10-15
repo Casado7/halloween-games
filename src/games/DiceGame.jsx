@@ -11,9 +11,20 @@ export default function DiceGame() {
 
     // Función para tirar el dado
     const rollDice = () => {
-        const roll = Math.floor(Math.random() * 6) + 1;
-        setRolledValue(roll);
+        let count = 0;
+        const interval = setInterval(() => {
+            const randomRoll = Math.floor(Math.random() * 6) + 1;
+            setRolledValue(randomRoll); // Mostrar un número aleatorio durante el rodaje del dado
+            count++;
+
+            if (count >= 10) { // Después de 10 intervalos (puedes ajustar esto para rodar más tiempo)
+                clearInterval(interval); // Detener la animación
+                const finalRoll = Math.floor(Math.random() * 6) + 1; // Resultado final
+                setRolledValue(finalRoll);
+            }
+        }, 100); // Cambia el número cada 100ms (ajusta el tiempo para una animación más rápida/lenta)
     };
+
 
     // Colocar el dado en la primera celda vacía de la columna del tablero del jugador
     const placeDie = (col) => {
@@ -110,9 +121,10 @@ export default function DiceGame() {
                         <div className="turn-indicator">
                             <h4>It's your turn!</h4>
                             <button onClick={rollDice} disabled={rolledValue !== null || isGameOver}>
-                                Roll Dice
+                                <div className={`die ${rolledValue ? 'roll' : ''}`}>
+                                    {rolledValue ? rolledValue : "Roll Dice"}
+                                </div>
                             </button>
-                            {rolledValue && <h3>Rolled: {rolledValue}</h3>}
                         </div>
                     )}
                 </div>
@@ -153,9 +165,11 @@ export default function DiceGame() {
                         <div className="turn-indicator">
                             <h4>It's your turn!</h4>
                             <button onClick={rollDice} disabled={rolledValue !== null || isGameOver}>
-                                Roll Dice
+                                <div className={`die ${rolledValue ? 'roll' : ''}`}>
+                                    {rolledValue ? rolledValue : "Roll Dice"}
+                                </div>
                             </button>
-                            {rolledValue && <h3>Rolled: {rolledValue}</h3>}
+
                         </div>
                     )}
                 </div>

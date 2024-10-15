@@ -85,7 +85,7 @@ export default function DiceGame() {
 
     // Renderizar el tablero
     const renderBoard = (board, player) => (
-        <div className="board">
+        <div className="player-board">
             {board.map((row, rowIndex) => (
                 <div key={rowIndex} className="row">
                     {row.map((cell, colIndex) => (
@@ -103,29 +103,51 @@ export default function DiceGame() {
 
     return (
         <div className="dice-game">
-
-            <div className="layout">
-                <div className="menu">
-                    <h2>Menu</h2>
-                    {/* Aquí puedes añadir más contenido para el menú */}
+            <div className="game-board">
+                <div className='1'>
                 </div>
 
-                <div className="game-board">
+                <div className='2'>
                     {renderBoard(playerBoards[1], 1)}
+                </div>
+                <div className='3'>
+                    <div className="player-info">
+                        <h3>Player 2</h3>
+                        <div className="scores">
+                            <h3>Score: {player2Score}</h3>
+                        </div>
+                        <div className="turn-info">
+                            {turn === 1 && <h4>It's your turn!</h4>}
+                        </div>
+                    </div>
+                </div>
+                <div className='4'>
+                    <div className="player-info">
+                        <h3>Player 1</h3>
+                        <div className="scores">
+                            <h3>Score: {player1Score}</h3>
+                        </div>
+                        <div className="turn-info">
+                            {turn === 0 && <h4>It's your turn!</h4>}
+                        </div>
+                    </div>
+                </div>
+                <div className='5'>
                     {renderBoard(playerBoards[0], 0)}
                 </div>
 
-                <div className="info">
-                    <h2>{isGameOver ? "Game Over!" : `Player ${turn + 1}'s Turn`}</h2>
-                    <button onClick={rollDice} disabled={rolledValue !== null || isGameOver}>
-                        Roll Dice
-                    </button>
-                    {rolledValue && <h3>Rolled: {rolledValue}</h3>}
-                    <div className="scores">
-                        <h3>Player 1 Score: {player1Score}</h3>
-                        <h3>Player 2 Score: {player2Score}</h3>
-                    </div>
+                <div className='6'>
                 </div>
+            </div>
+
+
+            {/* Control central del juego */}
+            <div className="game-controls">
+                <h2>{isGameOver ? "Game Over!" : `Player ${turn + 1}'s Turn`}</h2>
+                <button onClick={rollDice} disabled={rolledValue !== null || isGameOver}>
+                    Roll Dice
+                </button>
+                {rolledValue && <h3>Rolled: {rolledValue}</h3>}
             </div>
         </div>
     );

@@ -108,9 +108,30 @@ export default function DiceGame() {
             return colScore;
         };
 
+        const getDieColor = (rowIndex, colIndex) => {
+            let count = {};
+            for (let row = 0; row < 3; row++) {
+                const value = board[row][colIndex];
+                if (value !== null) {
+                    count[value] = (count[value] || 0) + 1;
+                }
+            }
+
+            const cellValue = board[rowIndex][colIndex];
+            if (cellValue !== null) {
+                const repetitions = count[cellValue];
+                if (repetitions === 2) {
+                    return '#ebd879'; // Duplicado
+                } else if (repetitions === 3) {
+                    return '#6fadce'; // Triplicado
+                }
+            }
+            return '#f3eacd'; // Color predeterminado si no hay repeticiones
+        };
+
+
         return (
             <div className="player-board">
-                {/* Mostrar la puntuación arriba si scoresOnTop es true */}
                 {scoresOnTop && (
                     <div className="row column-scores">
                         {board[0].map((_, colIndex) => (
@@ -121,18 +142,20 @@ export default function DiceGame() {
                     </div>
                 )}
 
-                {/* Mostrar los dados en el tablero */}
                 {board.map((row, rowIndex) => (
                     <div key={rowIndex} className="row">
                         {row.map((cell, colIndex) => (
-                            <div key={colIndex} className="cell" onClick={() => placeDie(colIndex)}>
-                                {cell && <Die value={cell} />}
+                            <div
+                                key={colIndex}
+                                className="cell"
+                                onClick={() => placeDie(colIndex)}
+                            >
+                                {cell && <Die value={cell} color={getDieColor(rowIndex, colIndex)} />}
                             </div>
                         ))}
                     </div>
                 ))}
 
-                {/* Mostrar la puntuación abajo si scoresOnTop es false */}
                 {!scoresOnTop && (
                     <div className="row column-scores">
                         {board[0].map((_, colIndex) => (

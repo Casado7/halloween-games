@@ -1,7 +1,7 @@
 import React from 'react';
 import './Die.css';
 
-export default function Die({ value }) {
+export default function Die({ value, color }) {
     const getDots = (num) => {
         switch (num) {
             case 1:
@@ -22,7 +22,7 @@ export default function Die({ value }) {
     };
 
     return (
-        <div className="die">
+        <div className="die" style={{ backgroundColor: color }}>
             {getDots(value).map(([row, col], index) => (
                 <div key={index} className={`dot dot-${row}-${col}`}></div>
             ))}

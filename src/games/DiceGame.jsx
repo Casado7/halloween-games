@@ -91,19 +91,61 @@ export default function DiceGame() {
         return totalScore;
     };
 
-    const renderBoard = (board) => (
-        <div className="player-board">
-            {board.map((row, rowIndex) => (
-                <div key={rowIndex} className="row">
-                    {row.map((cell, colIndex) => (
-                        <div key={colIndex} className="cell" onClick={() => placeDie(colIndex)}>
-                            {cell && <Die value={cell} />} {/* Usamos el componente Die */}
-                        </div>
-                    ))}
-                </div>
-            ))}
-        </div>
-    );
+    const renderBoard = (board, scoresOnTop) => {
+        const calculateColumnScore = (colIndex) => {
+            let colScore = 0;
+            let count = {};
+            for (let row = 0; row < 3; row++) {
+                const value = board[row][colIndex];
+                if (value !== null) {
+                    count[value] = (count[value] || 0) + 1;
+                }
+            }
+            for (const value in count) {
+                const val = parseInt(value);
+                colScore += Math.pow(val, count[value]);
+            }
+            return colScore;
+        };
+
+        return (
+            <div className="player-board">
+                {/* Mostrar la puntuación arriba si scoresOnTop es true */}
+                {scoresOnTop && (
+                    <div className="row column-scores">
+                        {board[0].map((_, colIndex) => (
+                            <div key={colIndex} className="score-cell">
+                                <span>{calculateColumnScore(colIndex)}</span>
+                            </div>
+                        ))}
+                    </div>
+                )}
+
+                {/* Mostrar los dados en el tablero */}
+                {board.map((row, rowIndex) => (
+                    <div key={rowIndex} className="row">
+                        {row.map((cell, colIndex) => (
+                            <div key={colIndex} className="cell" onClick={() => placeDie(colIndex)}>
+                                {cell && <Die value={cell} />}
+                            </div>
+                        ))}
+                    </div>
+                ))}
+
+                {/* Mostrar la puntuación abajo si scoresOnTop es false */}
+                {!scoresOnTop && (
+                    <div className="row column-scores">
+                        {board[0].map((_, colIndex) => (
+                            <div key={colIndex} className="score-cell">
+                                <span>{calculateColumnScore(colIndex)}</span>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
+        );
+    };
+
 
     const player1Score = calculateScore(playerBoards[0]);
     const player2Score = calculateScore(playerBoards[1]);
@@ -124,7 +166,7 @@ export default function DiceGame() {
                 </div>
 
                 <div className='2'>
-                    {renderBoard(playerBoards[1])}
+                    {renderBoard(playerBoards[1], false)}
                 </div>
 
                 <div className='3'>
@@ -146,7 +188,7 @@ export default function DiceGame() {
                 </div>
 
                 <div className='5'>
-                    {renderBoard(playerBoards[0])}
+                    {renderBoard(playerBoards[0], true)}
                 </div>
 
                 <div className='6'>

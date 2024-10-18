@@ -8,7 +8,7 @@
     border-radius: 10px;
     width: 400px; /* Ajusta según necesites */
     color: #fff;
-    font-family: 'Creepster', cursive; /* Busca una fuente terrorífica para mejorar la atmósfera */
+    font-family: 'Creepster', cursive; /* Fuente con temática de terror */
   }
   
   .boss-image {
@@ -29,5 +29,31 @@
     border: 1px solid #666;
     font-size: 1.2em;
     text-align: center;
+  }
+  
+  .boss-controls {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  .boss-controls button {
+    background-color: #444;
+    border: none;
+    color: white;
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .boss-controls button:hover {
+    background-color: #666;
+  }
+  
+  .boss-controls button:disabled {
+    background-color: #222;
+    cursor: not-allowed;
   }
   

@@ -1,0 +1,33 @@
+.boss-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #222; /* Fondo oscuro para el tema de terror */
+    padding: 20px;
+    border: 2px solid #444; /* Bordes para un toque oscuro */
+    border-radius: 10px;
+    width: 400px; /* Ajusta según necesites */
+    color: #fff;
+    font-family: 'Creepster', cursive; /* Busca una fuente terrorífica para mejorar la atmósfera */
+  }
+  
+  .boss-image {
+    margin-bottom: 20px;
+  }
+  
+  .boss-img {
+    width: 150px; /* Ajusta el tamaño de la imagen del jefe */
+    height: auto;
+    border-radius: 10px;
+    border: 3px solid #555;
+  }
+  
+  .boss-dialogue {
+    background-color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #666;
+    font-size: 1.2em;
+    text-align: center;
+  }
+  

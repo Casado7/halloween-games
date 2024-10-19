@@ -206,7 +206,7 @@ export default function DiceGame() {
     };
 
     useEffect(() => {
-        if (turn === 1) {
+        if (turn === 1 && rolledValue === null && !isGameOver) {
             simulateTurn();
         }
     }, [turn, rolledValue, isGameOver]);

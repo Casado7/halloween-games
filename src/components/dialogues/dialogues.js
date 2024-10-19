@@ -71,9 +71,22 @@ const dialogues = {
             { option: 'No quiero jugar', nextIndex: 13 }
         ]
     },
-    13: { // Aceptar el juego
+    13: { // Reglas del juego
+        text: 'Cada jugador juega en una cuadrícula de 3x3 dividida en tres columnas. Cada vez que tires el dado, debes colocarlo en una de las columnas.',
+        nextIndex: 14 // Conecta con el siguiente nodo
+    },
+    14: { 
+        text: ' Si logras alinear dos o tres números iguales en una columna, su valor se multiplica exponencialmente.',
+        nextIndex: 15 // Conecta con el siguiente nodo
+    },
+    15: { 
+        text: 'Sin embargo, si tu oponente lanza un dado del mismo valor numérico en la columna equivalente de su lado del tablero, eliminará cualquier número coincidente del tuyo.',
+        nextIndex: 16 // Conecta con el siguiente nodo
+    },
+    16: { // Aceptar el juego
         text: 'Muy bien. Empecemos...',
-    }
+        nextIndex: 14 // Conecta con el siguiente nodo
+    },
   };
 
 export default dialogues;

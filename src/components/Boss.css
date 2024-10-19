@@ -1,16 +1,4 @@
-.boss-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #222; /* Fondo oscuro para el tema de terror */
-    padding: 20px;
-    border: 2px solid #444; /* Bordes para un toque oscuro */
-    border-radius: 10px;
-    width: 100%;
-    color: #fff;
-    font-family: 'Creepster', cursive; /* Fuente con temática de terror */
-  }
-  
+
   .boss-image {
     margin-bottom: 20px;
   }

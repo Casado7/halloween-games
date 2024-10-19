@@ -40,3 +40,28 @@
 .read-the-docs {
   color: #888;
 }
+
+.app-container {
+  display: flex;
+  justify-content: space-between; /* Espacio entre Boss y DiceGame */
+  align-items: flex-start; /* Alinearlos arriba */
+}
+
+.boss-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #222; /* Fondo oscuro para el tema de terror */
+  padding: 20px;
+  border: 2px solid #444; /* Bordes para un toque oscuro */
+  border-radius: 10px;
+  width: 40%;
+  color: #fff;
+  font-family: 'Creepster', cursive; /* Fuente con temática de terror */
+}
+
+
+.dicegame-container {
+  width: 60%; /* Ajusta el ancho como necesites */
+  text-align: center; /* Centrar el contenido */
+}

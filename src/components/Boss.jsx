@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './Boss.css'; // Puedes agregar los estilos específicos aquí
 import { TypeAnimation } from 'react-type-animation';
 import useSound from 'use-sound'; // Para el sonido
 import typingSound from './sounds/typing2.mp3';
@@ -130,13 +129,19 @@ function Boss({ setStartGame }) {
             ))}
           </div>
         ) : (
-          // Botón "Siguiente" si no hay opciones pero hay un diálogo "nextIndex"
-          dialogues[currentNodeIndex].nextIndex && (
+          // Si hay un nextIndex, mostrar el botón "Siguiente"
+          dialogues[currentNodeIndex].nextIndex ? (
             <button onClick={() => handleNext()} disabled={isTyping}>
               Siguiente
             </button>
+          ) : (
+            // Si no hay opciones ni nextIndex, mostrar el botón "Empezar juego"
+            <button onClick={() => setStartGame(true)} disabled={isTyping}>
+              Empezar juego
+            </button>
           )
         )}
+
       </div>
     </>
   );

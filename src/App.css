@@ -65,3 +65,54 @@
   width: 60%; /* Ajusta el ancho como necesites */
   text-align: center; /* Centrar el contenido */
 }
+
+
+
+
+.boss-image {
+  margin-bottom: 20px;
+}
+
+.boss-img {
+  width: 150px; /* Ajusta el tamaño de la imagen del jefe */
+  height: auto;
+  border-radius: 10px;
+  border: 3px solid #555;
+}
+
+.boss-dialogue {
+  background-color: #333;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #666;
+  font-size: 1.2em;
+  text-align: center;
+}
+
+.boss-controls {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.boss-controls button {
+  background-color: #444;
+  border: none;
+  color: white;
+  padding: 10px;
+  font-size: 1em;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.boss-controls button:hover {
+  background-color: #666;
+}
+
+.boss-controls button:disabled {
+  background-color: #222;
+  cursor: not-allowed;
+}
+

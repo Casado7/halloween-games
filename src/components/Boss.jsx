@@ -62,8 +62,8 @@ function Boss() {
   };
 
   return (
-    <div className="boss-container">
-      {/* Imagen del jefe */}
+
+    <>
       <div className="boss-image">
         {/* Espacio para la imagen del jefe que agregarás más tarde */}
         <img
@@ -138,7 +138,7 @@ function Boss() {
           )
         )}
       </div>
-    </div>
+    </>
   );
 }
 

@@ -111,7 +111,7 @@ function Boss({ setStartGame }) {
 
       {/* Botones para controlar los diálogos */}
       <div className="boss-controls">
-        {/* Botón "Atrás" */}
+        {/* TODO: Botón "Atrás" hacer una lista/array con el historial de movimientos para manejar el atras */}
         <button
           onClick={handlePrev}
           disabled={dialogues[currentNodeIndex].prevIndex === undefined || isTyping} // Desactivar si no hay prevIndex

@@ -6,7 +6,7 @@
     padding: 20px;
     border: 2px solid #444; /* Bordes para un toque oscuro */
     border-radius: 10px;
-    width: 400px; /* Ajusta según necesites */
+    width: 100%;
     color: #fff;
     font-family: 'Creepster', cursive; /* Fuente con temática de terror */
   }
@@ -46,6 +46,7 @@
     font-size: 1em;
     border-radius: 5px;
     cursor: pointer;
+    margin-left: 10px;
   }
   
   .boss-controls button:hover {
@@ -56,4 +57,4 @@
     background-color: #222;
     cursor: not-allowed;
   }
-  
+

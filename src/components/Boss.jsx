@@ -6,8 +6,11 @@ import typingSound from './sounds/typing2.mp3';
 
 function Boss() {
   const [currentStep, setCurrentStep] = useState(0);
-  const [playTypingSound, { stop: stopTypingSound }] = useSound(typingSound, { volume: 0.5 });
-  const [isTyping, setIsTyping] = useState(true);
+  const [isTyping, setIsTyping] = useState(false);
+  
+  // Precargar el sonido
+  const [playTypingSound, { stop: stopTypingSound }] = useSound(typingSound, { volume: 0.5, interrupt: true });
+
   // Frases del jefe
   const dialogues = [
     'Bienvenido...',
@@ -17,26 +20,27 @@ function Boss() {
     '¿Te atreves a continuar?'
   ];
 
+  // Iniciar el sonido solo si se está escribiendo texto
   useEffect(() => {
     if (isTyping) {
-      playTypingSound();
+      playTypingSound();  // Iniciar sonido al comenzar a escribir
     } else {
-      stopTypingSound();
+      stopTypingSound();  // Detener sonido cuando se deja de escribir
     }
   }, [isTyping, playTypingSound, stopTypingSound]);
 
   // Función para avanzar en los diálogos
   const handleNext = () => {
     if (currentStep < dialogues.length - 1) {
-      setCurrentStep(currentStep + 1);
       setIsTyping(true);
+      setCurrentStep(currentStep + 1);
     }
   };
 
   const handlePrev = () => {
     if (currentStep > 0) {
-      setCurrentStep(currentStep - 1);
       setIsTyping(true);
+      setCurrentStep(currentStep - 1);
     }
   };
 
@@ -56,12 +60,13 @@ function Boss() {
       <div className="boss-dialogue">
         {isTyping ? (
           <TypeAnimation
-            sequence={[dialogues[currentStep], () => setIsTyping(false)]}
+            sequence={[dialogues[currentStep], () => setIsTyping(false)]} // Cuando termine de escribir, desactiva `isTyping`
             wrapper="p"
-            speed={10}
+            speed={10} // Controla la velocidad de escritura
+            onFinished={() => stopTypingSound()} // Asegura que el sonido se detenga cuando termine la animación
           />
         ) : (
-          <p>{dialogues[currentStep]}</p>
+          <p>{dialogues[currentStep]}</p> // Mostrar el texto completo cuando termine de escribir
         )}
       </div>
 

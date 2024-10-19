@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Boss.css'; // Puedes agregar los estilos específicos aquí
 import { TypeAnimation } from 'react-type-animation';
 import useSound from 'use-sound'; // Para el sonido
-import typingSound from './sounds/typing.mp3';
+import typingSound from './sounds/typing2.mp3';
 
 function Boss() {
   const [currentStep, setCurrentStep] = useState(0);
@@ -10,7 +10,8 @@ function Boss() {
   const [isTyping, setIsTyping] = useState(true);
   // Frases del jefe
   const dialogues = [
-    'Bienvenido... espero que estés listo para enfrentarte a mí.',
+    'Bienvenido...',
+    'espero que estés listo para enfrentarte a mí.',
     'Te explicaré cómo jugar muy pronto...',
     'Prepárate, no será fácil ganarme...',
     '¿Te atreves a continuar?'
@@ -55,8 +56,9 @@ function Boss() {
       <div className="boss-dialogue">
         {isTyping ? (
           <TypeAnimation
-            sequence={[dialogues[currentStep], 2000, () => setIsTyping(false)]}
+            sequence={[dialogues[currentStep], () => setIsTyping(false)]}
             wrapper="p"
+            speed={10}
           />
         ) : (
           <p>{dialogues[currentStep]}</p>

@@ -5,7 +5,7 @@ import useSound from 'use-sound'; // Para el sonido
 import typingSound from './sounds/typing2.mp3';
 import dialogues from './dialogues/dialogues';
 
-function Boss() {
+function Boss({ setStartGame }) {
   const [currentNodeIndex, setCurrentNodeIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(false);
   const [inputValues, setInputValues] = useState({ name: '', photo: null });

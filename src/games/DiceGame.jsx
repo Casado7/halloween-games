@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Die from './DiceGameJs/Die'; // Importamos el nuevo componente
 import './DiceGame.css';
 
@@ -25,7 +25,6 @@ export default function DiceGame() {
             }
         }, 100); // Cambia el número cada 100ms (ajusta el tiempo para una animación más rápida/lenta)
     };
-
 
     // Colocar el dado en la primera celda vacía de la columna del tablero del jugador
     const placeDie = (col) => {
@@ -64,6 +63,7 @@ export default function DiceGame() {
         }
     };
 
+    // Comprobar si el juego ha terminado
     const checkGameOver = (boards) => {
         const isFull = boards.some(board =>
             board.every(row => row.every(cell => cell !== null))
@@ -71,6 +71,7 @@ export default function DiceGame() {
         if (isFull) setIsGameOver(true);
     };
 
+    // Calcular la puntuación de una columna
     const calculateScore = (board) => {
         let totalScore = 0;
         for (let col = 0; col < 3; col++) {
@@ -91,6 +92,7 @@ export default function DiceGame() {
         return totalScore;
     };
 
+    // Renderizar el tablero del jugador
     const renderBoard = (board, scoresOnTop) => {
         const calculateColumnScore = (colIndex) => {
             let colScore = 0;
@@ -172,6 +174,42 @@ export default function DiceGame() {
 
     const player1Score = calculateScore(playerBoards[0]);
     const player2Score = calculateScore(playerBoards[1]);
+
+    // IA para el jugador 2
+
+    // Colocar un dado en una columna aleatoria TODO: NO ESTA PONIENDO EL DADO PERO CALCULA EL DADO BIEN
+    const placeRandomDie = () => {
+        const emptyCols = [0, 1, 2].filter(colIndex => {
+            return playerBoards[1].some(row => row[colIndex] === null);
+        });
+    
+        if (emptyCols.length > 0) {
+            const randomCol = emptyCols[Math.floor(Math.random() * emptyCols.length)];
+    
+            // Asegúrate de que `placeDie` se llame correctamente
+            console.log('Placing die in column', randomCol);
+            placeDie(randomCol);
+        }
+    };
+    
+
+    // Simular el turno del jugador 2
+    const simulateTurn = () => {
+        if (turn === 1 && rolledValue === null && !isGameOver) {
+            setTimeout(() => {
+                rollDice();
+                setTimeout(() => {
+                    placeRandomDie();
+                }, 1000); // Esperar 1 segundo después de lanzar el dado
+            }, 1000); // Esperar 1 segundo antes de lanzar el dado
+        }
+    };
+
+    useEffect(() => {
+        if (turn === 1) {
+            simulateTurn();
+        }
+    }, [turn, rolledValue, isGameOver]);
 
     return (
         <div className="dice-game">

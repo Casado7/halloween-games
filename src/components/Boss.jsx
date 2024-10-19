@@ -8,13 +8,28 @@ import dialogues from './dialogues/dialogues';
 function Boss() {
   const [currentNodeIndex, setCurrentNodeIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(false);
-
+  const [inputValues, setInputValues] = useState({ name: '', photo: null });
   // Precargar el sonido
   const [playTypingSound, { stop: stopTypingSound }] = useSound(typingSound, { volume: 0.5, interrupt: true });
 
-  // Frases del jefe y opciones de diálogo
 
+  // Manejar cambios en el input de texto
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setInputValues((prevValues) => ({
+      ...prevValues,
+      [name]: value
+    }));
+  };
 
+  // Manejar cambios en la carga de archivos
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setInputValues((prevValues) => ({
+      ...prevValues,
+      photo: file
+    }));
+  };
 
   // Iniciar el sonido solo si se está escribiendo texto
   useEffect(() => {
@@ -35,6 +50,7 @@ function Boss() {
       setCurrentNodeIndex(dialogues[currentNodeIndex].nextIndex); // Avanzar al siguiente nodo
       setIsTyping(true);
     }
+    console.log(inputValues); // Mostrar los valores de los inputs
   };
 
   const handlePrev = () => {
@@ -68,6 +84,29 @@ function Boss() {
           />
         ) : (
           <p>{dialogues[currentNodeIndex].text}</p> // Mostrar el texto completo cuando termine de escribir
+        )}
+        {/* Manejo de entradas */}
+        {dialogues[currentNodeIndex].input && (
+          <div className="input-container">
+            {dialogues[currentNodeIndex].type === 'string' && (
+              <input
+                type="text"
+                name={dialogues[currentNodeIndex].input}
+                value={inputValues[dialogues[currentNodeIndex].input] || ''}
+                onChange={handleInputChange}
+                placeholder="Escribe tu respuesta..."
+              />
+            )}
+
+            {dialogues[currentNodeIndex].type === 'file' && (
+              <input
+                type="file"
+                name={dialogues[currentNodeIndex].input}
+                onChange={handleFileChange}
+                accept="image/*"
+              />
+            )}
+          </div>
         )}
       </div>
 

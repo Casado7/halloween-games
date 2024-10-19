@@ -54,16 +54,24 @@ const dialogues = {
     },
     10: { // Respuesta a la ubicación
         text: '¿Cual es tu nombre?',
+        input: 'name',  
+        type: 'string',
         nextIndex: 11 // Conecta con el siguiente nodo
     },
-    11: { // Empezar el juego
+    11: { // subir photo
+        text: '¿Puedes subir una foto tuya?',
+        input: 'photo',
+        type: 'file',
+        nextIndex: 12 // Conecta con el siguiente nodo
+    },
+    12: { // Empezar el juego
         text: 'Vamos a jugar un juego. Si ganas, te dejaré ir. Si pierdes, te quedarás aquí para siempre.',
         options: [
-            { option: 'De acuerdo', nextIndex: 12 },
-            { option: 'No quiero jugar', nextIndex: 12 }
+            { option: 'De acuerdo', nextIndex: 13 },
+            { option: 'No quiero jugar', nextIndex: 13 }
         ]
     },
-    12: { // Aceptar el juego
+    13: { // Aceptar el juego
         text: 'Muy bien. Empecemos...',
     }
   };

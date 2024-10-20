@@ -4,7 +4,7 @@ import useSound from 'use-sound'; // Para el sonido
 import typingSound from './sounds/typing2.mp3';
 import dialogues from './dialogues/dialogues';
 
-function Boss({ setStartGame }) {
+function Boss({ startGame, setStartGame, setPlayerName }) {
   const [currentNodeIndex, setCurrentNodeIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(false);
   const [inputValues, setInputValues] = useState({ name: '', photo: null });
@@ -136,7 +136,7 @@ function Boss({ setStartGame }) {
             </button>
           ) : (
             // Si no hay opciones ni nextIndex, mostrar el botón "Empezar juego"
-            <button onClick={() => setStartGame(true)} disabled={isTyping}>
+            <button onClick={() => setStartGame(true)} disabled={isTyping || startGame}>
               Empezar juego
             </button>
           )

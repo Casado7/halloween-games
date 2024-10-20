@@ -8,6 +8,7 @@ export default function DiceGame() {
     const [playerBoards, setPlayerBoards] = useState([initialBoard(), initialBoard()]);
     const [turn, setTurn] = useState(0); // 0 para el jugador 1, 1 para el jugador 2
     const [rolledValue, setRolledValue] = useState(null);
+    const [tempValue, setTempValue] = useState(null);
     const [isGameOver, setIsGameOver] = useState(false);
 
     // Función para tirar el dado
@@ -15,14 +16,16 @@ export default function DiceGame() {
         let count = 0;
         const interval = setInterval(() => {
             const randomRoll = Math.floor(Math.random() * 6) + 1;
-            setRolledValue(randomRoll); // Mostrar un número aleatorio durante el rodaje del dado
+            setTempValue(randomRoll); // Cambiar el valor temporal del dado para la animación
             count++;
 
-            if (count >= 10) { // Después de 10 intervalos (puedes ajustar esto para rodar más tiempo)
+            if (count >= 10) { // Después de 10 intervalos (ajustar para controlar la duración de la animación)
                 clearInterval(interval); // Detener la animación
-
+                const finalRoll = Math.floor(Math.random() * 6) + 1; // Generar el valor definitivo del dado
+                setRolledValue(finalRoll); // Establecer el valor definitivo
+                setTempValue(null); // Limpiar el valor temporal
             }
-        }, 100); // Cambia el número cada 100ms (ajusta el tiempo para una animación más rápida/lenta)
+        }, 100); // Cambia el valor cada 100ms (puedes ajustar esto para cambiar la velocidad de la animación)
     };
 
     // Colocar el dado en la primera celda vacía de la columna del tablero del jugador
@@ -184,33 +187,33 @@ export default function DiceGame() {
         const emptyCols = [0, 1, 2].filter(colIndex => {
             return playerBoards[1].some(row => row[colIndex] === null);
         });
-    
+
         if (emptyCols.length > 0) {
             const randomCol = emptyCols[Math.floor(Math.random() * emptyCols.length)];
-    
+
             // Asegúrate de que `placeDie` se llame correctamente
             console.log('Placing die in column', randomCol);
             placeDie(randomCol);
         }
     };
-    
+
 
     // Simular el dado del jugador 2
     useEffect(() => {
         if (turn === 1 && rolledValue === null && !isGameOver) {
             setTimeout(() => {
-                rollDice();    
-            }, 3000); 
-        } 
+                rollDice();
+            }, 1000);
+        }
     }, [turn, rolledValue, isGameOver]);
 
     useEffect(() => {
         if (turn === 1 && rolledValue !== null && !isGameOver) {
             setTimeout(() => {
                 placeRandomDie();
-            }, 3000); 
+            }, 1500);
         }
-    }, [turn, rolledValue, isGameOver]);    
+    }, [turn, rolledValue, isGameOver]);
 
     return (
         <div className="dice-game">
@@ -222,7 +225,7 @@ export default function DiceGame() {
                             <button onClick={rollDice} disabled={rolledValue !== null || isGameOver}>
                                 Roll Dice
                             </button>
-                            {rolledValue && <Die value={rolledValue} />} {/* El valor lanzado se muestra como un dado */}
+                            {tempValue ? <Die value={tempValue} /> : rolledValue && <Die value={rolledValue} />} {/* El valor lanzado se muestra como un dado */}
                         </div>
                     )}
                 </div>
@@ -260,7 +263,7 @@ export default function DiceGame() {
                             <button onClick={rollDice} disabled={rolledValue !== null || isGameOver}>
                                 Roll Dice
                             </button>
-                            {rolledValue && <Die value={rolledValue} />}
+                            {tempValue ? <Die value={tempValue} /> : rolledValue && <Die value={rolledValue} />}
                         </div>
                     )}
                 </div>

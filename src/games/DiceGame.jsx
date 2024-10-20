@@ -20,8 +20,7 @@ export default function DiceGame() {
 
             if (count >= 10) { // Después de 10 intervalos (puedes ajustar esto para rodar más tiempo)
                 clearInterval(interval); // Detener la animación
-                const finalRoll = Math.floor(Math.random() * 6) + 1; // Resultado final
-                setRolledValue(finalRoll);
+
             }
         }, 100); // Cambia el número cada 100ms (ajusta el tiempo para una animación más rápida/lenta)
     };
@@ -29,6 +28,7 @@ export default function DiceGame() {
     // Colocar el dado en la primera celda vacía de la columna del tablero del jugador
     const placeDie = (col) => {
         if (rolledValue) {
+            console.log(`Placing die ${rolledValue} in column ${col}`);
             const board = playerBoards[turn].map(row => [...row]);
             let placed = false;
 
@@ -60,6 +60,8 @@ export default function DiceGame() {
             setRolledValue(null);
             checkGameOver(newBoards);
             setTurn(turn === 0 ? 1 : 0); // Cambiar turno
+        } else {
+            console.log('Roll the dice first!');
         }
     };
 
@@ -193,23 +195,22 @@ export default function DiceGame() {
     };
     
 
-    // Simular el turno del jugador 2
-    const simulateTurn = () => {
-        if (turn === 1 && rolledValue === null && !isGameOver) {
-            setTimeout(() => {
-                rollDice();
-                setTimeout(() => {
-                    placeRandomDie();
-                }, 1000); // Esperar 1 segundo después de lanzar el dado
-            }, 1000); // Esperar 1 segundo antes de lanzar el dado
-        }
-    };
-
+    // Simular el dado del jugador 2
     useEffect(() => {
         if (turn === 1 && rolledValue === null && !isGameOver) {
-            simulateTurn();
-        }
+            setTimeout(() => {
+                rollDice();    
+            }, 3000); 
+        } 
     }, [turn, rolledValue, isGameOver]);
+
+    useEffect(() => {
+        if (turn === 1 && rolledValue !== null && !isGameOver) {
+            setTimeout(() => {
+                placeRandomDie();
+            }, 3000); 
+        }
+    }, [turn, rolledValue, isGameOver]);    
 
     return (
         <div className="dice-game">

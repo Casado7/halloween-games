@@ -3,7 +3,8 @@ const dialogues = {
         text: 'Te despiertas sobresaltado en una habitación oscura y húmeda. No recuerdas nada. Al intentar levantarte, un dolor agudo te atraviesa la espalda. ¿Qué ha pasado?',
         options: [
             { option: 'Intentar recordar', nextIndex: 1 },
-            { option: 'Explorar la habitación', nextIndex: 2 }
+            { option: 'Explorar la habitación', nextIndex: 2 },
+            { option: 'Saltar Historia', nextIndex: 16 }
         ]
     },
     1: { // Intentar recordar

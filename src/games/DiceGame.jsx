@@ -217,6 +217,7 @@ export default function DiceGame({ startGame, playerName }) {
     }, [turn, rolledValue, isGameOver]);
 
     return (
+
         <div className="dice-game">
             <div className="game-board">
                 <div className='1'>
@@ -234,7 +235,7 @@ export default function DiceGame({ startGame, playerName }) {
 
                 <div className='3'>
                     <div className="player-info">
-                        <h3>Jefe</h3>   
+                        <h3>Jefe</h3>
                         <div className="scores">
                             <h3>{player2Score}</h3>
                         </div>
@@ -257,7 +258,7 @@ export default function DiceGame({ startGame, playerName }) {
                 <div className='6'>
                     {turn === 0 && (
                         <div className="turn-indicator">
-                            <h4>Es tu turno!</h4>   
+                            <h4>Es tu turno!</h4>
                             <button onClick={rollDice} disabled={rolledValue !== null || isGameOver}>
                                 Lanzar Dado
                             </button>
@@ -266,10 +267,17 @@ export default function DiceGame({ startGame, playerName }) {
                     )}
                 </div>
             </div>
+            {isGameOver && (
+                <div className="game-controls">
+                    <h2>{player1Score > player2Score ? `Ganaste!` : "Perdiste!"}</h2>
 
-            <div className="game-controls">
-                <h2>{isGameOver ? "Game Over!" : `Player ${turn + 1}'s Turn`}</h2>
-            </div>
+                    <button onClick={() => setPlayerBoards([initialBoard(), initialBoard()])}>
+                        Jugar de nuevo
+                    </button>
+
+
+                </div>
+            )}
         </div>
     );
 }

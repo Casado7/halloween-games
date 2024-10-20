@@ -183,7 +183,7 @@ export default function DiceGame({ startGame, playerName }) {
 
     // IA para el jugador 2
 
-    // Colocar un dado en una columna aleatoria TODO: NO ESTA PONIENDO EL DADO PERO CALCULA EL DADO BIEN
+    // Colocar un dado en una columna aleatoria
     const placeRandomDie = () => {
         const emptyCols = [0, 1, 2].filter(colIndex => {
             return playerBoards[1].some(row => row[colIndex] === null);

@@ -85,7 +85,8 @@ const dialogues = {
     },
     16: { // Aceptar el juego
         text: 'Muy bien. Empecemos...',
-        nextIndex: 14 // Conecta con el siguiente nodo
+        nextIndex: 14, // Conecta con el siguiente nodo
+        startGame: true
     },
   };
 

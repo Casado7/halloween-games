@@ -6,22 +6,28 @@ import Boss from './components/Boss';
 
 function App() {
   const [startGame, setStartGame] = useState(false);
+  const [playerName, setPlayerName] = useState('Jugador 1');
   useEffect(() => {
     console.log("startGame", startGame);
   }
-  , [startGame]);
+    , [startGame]);
   return (
     <div className="app-container">
-      {/* Contenedor de Boss */}
-      <div className="boss-container">
-        <Boss setStartGame={setStartGame} />
-      </div>
-      
-      {/* Contenedor del juego */}
-      <div className="dicegame-container">
-        <DiceGame startGame={startGame} />
-      </div>
+      {/* Si startGame es false, mostrar el componente Boss */}
+      {!startGame && (
+        <div className="boss-container">
+          <Boss startGame={startGame} setStartGame={setStartGame} setPlayerName={setPlayerName} />
+        </div>
+      )}
+
+      {/* Si startGame es true, mostrar el componente DiceGame */}
+      {startGame && (
+        <div className="dicegame-container">
+          <DiceGame startGame={startGame} setStartGame={setStartGame} playerName={playerName} />
+        </div>
+      )}
     </div>
+
   );
 }
 

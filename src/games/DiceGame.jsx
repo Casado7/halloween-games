@@ -222,10 +222,7 @@ export default function DiceGame({ startGame, playerName }) {
                 <div className='1'>
                     {turn === 1 && (
                         <div className="turn-indicator">
-                            <h4>It's your turn!</h4>
-                            <button onClick={rollDice} disabled={rolledValue !== null || isGameOver}>
-                                Roll Dice
-                            </button>
+                            <h4>Es el turno del jefe...</h4>
                             {tempValue ? <Die value={tempValue} /> : rolledValue && <Die value={rolledValue} />} {/* El valor lanzado se muestra como un dado */}
                         </div>
                     )}
@@ -260,9 +257,9 @@ export default function DiceGame({ startGame, playerName }) {
                 <div className='6'>
                     {turn === 0 && (
                         <div className="turn-indicator">
-                            <h4>It's your turn!</h4>
+                            <h4>Es tu turno!</h4>   
                             <button onClick={rollDice} disabled={rolledValue !== null || isGameOver}>
-                                Roll Dice
+                                Lanzar Dado
                             </button>
                             {tempValue ? <Die value={tempValue} /> : rolledValue && <Die value={rolledValue} />}
                         </div>

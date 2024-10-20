@@ -4,8 +4,10 @@ import useSound from 'use-sound'; // Para el sonido
 import typingSound from './sounds/typing2.mp3';
 import dialogues from './dialogues/dialogues';
 
+
 function Boss({ startGame, setStartGame, setPlayerName }) {
   const [currentNodeIndex, setCurrentNodeIndex] = useState(0);
+  const [historial, setHistorial] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
   const [inputValues, setInputValues] = useState({ name: '', photo: null });
   // Precargar el sonido
@@ -44,18 +46,23 @@ function Boss({ startGame, setStartGame, setPlayerName }) {
     if (nextIndex !== null) {
       setCurrentNodeIndex(nextIndex); // Avanzar al índice indicado
       setIsTyping(true);
+      // guardar el nodo actual en el historial
+      setHistorial([...historial, currentNodeIndex]);
     } else if (dialogues[currentNodeIndex].nextIndex) {
       // Si no hay opciones pero hay un "nextIndex"
       setCurrentNodeIndex(dialogues[currentNodeIndex].nextIndex); // Avanzar al siguiente nodo
       setIsTyping(true);
+      // guardar el nodo actual en el historial
+      setHistorial([...historial, currentNodeIndex]);
     }
     console.log(inputValues); // Mostrar los valores de los inputs
   };
 
   const handlePrev = () => {
-    const prevIndex = dialogues[currentNodeIndex].prevIndex;
-    if (prevIndex !== undefined) {
-      setCurrentNodeIndex(prevIndex); // Ir al índice anterior
+    if (historial.length > 0) {
+      const prevIndex = historial[historial.length - 1];
+      setCurrentNodeIndex(prevIndex);
+      setHistorial(historial.slice(0, -1));
       setIsTyping(true);
     }
   };
@@ -66,7 +73,7 @@ function Boss({ startGame, setStartGame, setPlayerName }) {
       <div className="boss-image">
         {/* Espacio para la imagen del jefe que agregarás más tarde */}
         <img
-          src="/path/to/boss-image.png" // Cambia este path cuando tengas la imagen
+          src="/images/boss.jpg"
           alt="Boss"
           className="boss-img"
         />
@@ -114,7 +121,7 @@ function Boss({ startGame, setStartGame, setPlayerName }) {
         {/* TODO: Botón "Atrás" hacer una lista/array con el historial de movimientos para manejar el atras */}
         <button
           onClick={handlePrev}
-          disabled={dialogues[currentNodeIndex].prevIndex === undefined || isTyping} // Desactivar si no hay prevIndex
+          disabled={isTyping || historial.length === 0}
         >
           Atrás
         </button>

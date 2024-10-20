@@ -55,14 +55,14 @@
   padding: 20px;
   border: 2px solid #444; /* Bordes para un toque oscuro */
   border-radius: 10px;
-  width: 40%;
+  width: 100%;
   color: #fff;
   font-family: 'Creepster', cursive; /* Fuente con temática de terror */
 }
 
 
 .dicegame-container {
-  width: 60%; /* Ajusta el ancho como necesites */
+  width: 100%; /* Ajusta el ancho como necesites */
   text-align: center; /* Centrar el contenido */
 }
 

@@ -4,7 +4,7 @@ import './DiceGame.css';
 
 const initialBoard = () => Array(3).fill(Array(3).fill(null));
 
-export default function DiceGame() {
+export default function DiceGame({ startGame, playerName }) {
     const [playerBoards, setPlayerBoards] = useState([initialBoard(), initialBoard()]);
     const [turn, setTurn] = useState(0); // 0 para el jugador 1, 1 para el jugador 2
     const [rolledValue, setRolledValue] = useState(null);
@@ -29,6 +29,7 @@ export default function DiceGame() {
     };
 
     // Colocar el dado en la primera celda vacía de la columna del tablero del jugador
+    // TODO: Deshabilitar la colocación si no es el turno del jugador
     const placeDie = (col) => {
         if (rolledValue) {
             console.log(`Placing die ${rolledValue} in column ${col}`);
@@ -236,18 +237,18 @@ export default function DiceGame() {
 
                 <div className='3'>
                     <div className="player-info">
-                        <h3>Player 2</h3>
+                        <h3>Jefe</h3>   
                         <div className="scores">
-                            <h3>Score: {player2Score}</h3>
+                            <h3>{player2Score}</h3>
                         </div>
                     </div>
                 </div>
 
                 <div className='4'>
                     <div className="player-info">
-                        <h3>Player 1</h3>
+                        <h3>{playerName}</h3>
                         <div className="scores">
-                            <h3>Score: {player1Score}</h3>
+                            <h3>{player1Score}</h3>
                         </div>
                     </div>
                 </div>

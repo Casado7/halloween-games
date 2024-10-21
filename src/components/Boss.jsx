@@ -7,7 +7,7 @@ import { AdvancedImage } from '@cloudinary/react'
 import { Resize, Effect, RoundCorners } from '@cloudinary/url-gen/actions'
 import { fill } from "@cloudinary/url-gen/actions/resize";
 
-function Boss({ startGame, setStartGame, setPlayerName, cld }) {
+function Boss({ startGame, setStartGame, setPlayerName, playerChoices, setPlayerChoices, cld }) {
   const imagen = {
     room: cld.image('room_mjt5j4'),
     boss: cld.image('boss_deze50'),
@@ -19,11 +19,6 @@ function Boss({ startGame, setStartGame, setPlayerName, cld }) {
   const [isTyping, setIsTyping] = useState(false);
   const [inputValues, setInputValues] = useState({ name: '', photo: null });
 
-  // Estado para guardar las elecciones del jugador
-  const [playerChoices, setPlayerChoices] = useState({
-    class: null, // mago, caballero, otra cosa
-    bossType: null // zombie, esqueleto, demonio
-  });
   // Precargar el sonido
   const [playTypingSound, { stop: stopTypingSound }] = useSound(typingSound, { volume: 0.5, interrupt: true });
 

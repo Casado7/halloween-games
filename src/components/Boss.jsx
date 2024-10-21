@@ -3,9 +3,17 @@ import { TypeAnimation } from 'react-type-animation';
 import useSound from 'use-sound'; // Para el sonido
 import typingSound from './sounds/typing2.mp3';
 import dialogues from './dialogues/dialogues';
+import { AdvancedImage } from '@cloudinary/react'
+import { Resize, Effect, RoundCorners } from '@cloudinary/url-gen/actions'
+import {fill} from "@cloudinary/url-gen/actions/resize";
 
-
-function Boss({ startGame, setStartGame, setPlayerName }) {
+function Boss({ startGame, setStartGame, setPlayerName, cld }) {
+  const imagen = {
+    room: cld.image('room_mjt5j4'),
+    boss: cld.image('boss_deze50'),
+    hallway: cld.image('hallway_ed6xle'),
+    table: cld.image('table_oyvgi1')
+  }
   const [currentNodeIndex, setCurrentNodeIndex] = useState(0);
   const [historial, setHistorial] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
@@ -71,12 +79,13 @@ function Boss({ startGame, setStartGame, setPlayerName }) {
 
     <>
       <div className="boss-image">
-        {/* Espacio para la imagen del jefe que agregarás más tarde */}
-        <img
-          src="/images/boss.jpg"
-          alt="Boss"
-          className="boss-img"
-        />
+        {/* Colocar la imagen de imagen cuya llave coincia con la imagen del nodo activo */}
+        <AdvancedImage
+            cldImg={imagen[dialogues[currentNodeIndex].imagen]
+              .resize(fill().width(250).height(250))
+            }
+            alt="Halloween Dark Filter"
+          />
       </div>
 
       {/* Texto del diálogo */}

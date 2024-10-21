@@ -13,7 +13,7 @@ const dialogues = {
         options: [
             { option: 'Mago', nextIndex: 1.1 },
             { option: 'Caballero', nextIndex: 1.2 },
-            { option: 'Otra cosa', nextIndex: 1.3 }
+            { option: 'Cazador', nextIndex: 1.3 }
         ]
     },
     1.1: { // Mago
@@ -26,8 +26,8 @@ const dialogues = {
         imagen: 'room',
         nextIndex: 2 // Conecta con el nodo donde explora la habitación
     },
-    1.3: { // Otra cosa (jugador decide)
-        text: 'No eres ni mago ni caballero, algo en tu interior te dice que tu destino es distinto, aunque no recuerdas exactamente qué.',
+    1.3: { // Cazador
+        text: 'Eres un cazador, un rastreador experto y un maestro del arco y la flecha. Tu habilidad para cazar bestias te ha llevado a lugares oscuros y peligrosos.',
         imagen: 'room',
         nextIndex: 2 // Conecta con el nodo donde explora la habitación
     },

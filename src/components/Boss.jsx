@@ -5,7 +5,7 @@ import typingSound from './sounds/typing2.mp3';
 import dialogues from './dialogues/dialogues';
 import { AdvancedImage } from '@cloudinary/react'
 import { Resize, Effect, RoundCorners } from '@cloudinary/url-gen/actions'
-import {fill} from "@cloudinary/url-gen/actions/resize";
+import { fill } from "@cloudinary/url-gen/actions/resize";
 
 function Boss({ startGame, setStartGame, setPlayerName, cld }) {
   const imagen = {
@@ -18,6 +18,12 @@ function Boss({ startGame, setStartGame, setPlayerName, cld }) {
   const [historial, setHistorial] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
   const [inputValues, setInputValues] = useState({ name: '', photo: null });
+
+  // Estado para guardar las elecciones del jugador
+  const [playerChoices, setPlayerChoices] = useState({
+    class: null, // mago, caballero, otra cosa
+    bossType: null // zombie, esqueleto, demonio
+  });
   // Precargar el sonido
   const [playTypingSound, { stop: stopTypingSound }] = useSound(typingSound, { volume: 0.5, interrupt: true });
 
@@ -50,20 +56,35 @@ function Boss({ startGame, setStartGame, setPlayerName, cld }) {
   }, [isTyping, playTypingSound, stopTypingSound]);
 
   // Función para avanzar en los diálogos
-  const handleNext = (nextIndex = null) => {
+  const handleNext = (nextIndex = null, option = null) => {
+    // Actualizar las elecciones del jugador según las opciones elegidas
+    if (currentNodeIndex === 1) { // Si está en la parte de elegir clase
+      setPlayerChoices((prevChoices) => ({
+        ...prevChoices,
+        class: option // Guardar la elección del jugador (mago, caballero, etc.)
+      }));
+    }
+
+    if (option && currentNodeIndex === 7) { // Si está en la parte de elegir tipo de jefe
+      setPlayerChoices((prevChoices) => ({
+        ...prevChoices,
+        bossType: option // Guardar la elección del tipo de jefe
+      }));
+    }
+
     if (nextIndex !== null) {
       setCurrentNodeIndex(nextIndex); // Avanzar al índice indicado
       setIsTyping(true);
-      // guardar el nodo actual en el historial
+      // Guardar el nodo actual en el historial
       setHistorial([...historial, currentNodeIndex]);
     } else if (dialogues[currentNodeIndex].nextIndex) {
       // Si no hay opciones pero hay un "nextIndex"
       setCurrentNodeIndex(dialogues[currentNodeIndex].nextIndex); // Avanzar al siguiente nodo
       setIsTyping(true);
-      // guardar el nodo actual en el historial
+      // Guardar el nodo actual en el historial
       setHistorial([...historial, currentNodeIndex]);
     }
-    console.log(inputValues); // Mostrar los valores de los inputs
+    console.log(playerChoices);
   };
 
   const handlePrev = () => {
@@ -81,11 +102,11 @@ function Boss({ startGame, setStartGame, setPlayerName, cld }) {
       <div className="boss-image">
         {/* Colocar la imagen de imagen cuya llave coincia con la imagen del nodo activo */}
         <AdvancedImage
-            cldImg={imagen[dialogues[currentNodeIndex].imagen]
-              .resize(fill().width(250).height(250))
-            }
-            alt="Halloween Dark Filter"
-          />
+          cldImg={imagen[dialogues[currentNodeIndex].imagen]
+            .resize(fill().width(250).height(250))
+          }
+          alt="Halloween Dark Filter"
+        />
       </div>
 
       {/* Texto del diálogo */}
@@ -94,7 +115,7 @@ function Boss({ startGame, setStartGame, setPlayerName, cld }) {
           <TypeAnimation
             sequence={[dialogues[currentNodeIndex].text || '', () => setIsTyping(false)]}
             wrapper="p"
-            speed={30} // Controla la velocidad de escritura
+            speed={50} // Controla la velocidad de escritura
             onFinished={() => stopTypingSound()} // Asegura que el sonido se detenga cuando termine la animación
           />
         ) : (
@@ -139,7 +160,7 @@ function Boss({ startGame, setStartGame, setPlayerName, cld }) {
         {dialogues[currentNodeIndex].options ? (
           <div className="options-container">
             {dialogues[currentNodeIndex].options.map((opt, index) => (
-              <button key={index} onClick={() => handleNext(opt.nextIndex)} disabled={isTyping}>
+              <button key={index} onClick={() => handleNext(opt.nextIndex, opt.option)} disabled={isTyping}>
                 {opt.option}
               </button>
             ))}

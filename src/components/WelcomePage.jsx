@@ -4,6 +4,7 @@ import { fill } from "@cloudinary/url-gen/actions/resize";
 import { focusOn } from '@cloudinary/url-gen/qualifiers/gravity';
 import { face } from '@cloudinary/url-gen/qualifiers/focusOn';
 import { Resize } from '@cloudinary/url-gen/actions';
+import { thumbnail } from '@cloudinary/url-gen/actions/resize';
 import './WelcomePage.css';
 
 function WelcomePage({ setStartDialogue, setUploadResult, cld, uploadResult }) {

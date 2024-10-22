@@ -97,6 +97,7 @@ function App() {
         <EndPage
           isWinner={isWinner}
           cld={cld}
+          playerChoices={playerChoices}
           uploadResult={uploadResult}
           handleResetGame={handleResetGame}
         />

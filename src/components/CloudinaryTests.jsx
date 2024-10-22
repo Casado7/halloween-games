@@ -21,7 +21,6 @@ function CloudinaryTests({ cld, uploadResult }) {
     <>
       {uploadResult && uploadResult?.uploadInfo?.secure_url && (
         <>
-          <h2>Imagen cargada:</h2>
           {/* Imagen 1: Filtro de caballero  */}
           <AdvancedImage
             cldImg={cld.image(uploadResult.uploadInfo.public_id)
@@ -70,27 +69,6 @@ function CloudinaryTests({ cld, uploadResult }) {
             }
             alt="Skeleton's Outfit"
           />
-
-          {/*Enfoque en el rostro, esquinas redondeadas, formato automático */}
-          <h3>Enfoque en el rostro con esquinas redondeadas</h3>
-          <AdvancedImage
-            cldImg={cld.image(uploadResult.uploadInfo.public_id)
-              .resize(
-                Resize.thumbnail()  // Redimensionar a un thumbnail (miniatura)
-                  .width(200)
-                  .height(200)
-                  .gravity(focusOn(face()))
-                // Enfocar en el rostro
-              )
-              .roundCorners(RoundCorners.max())  // Redondear las esquinas al máximo
-              // Formato automático
-            }
-            alt="Face Focus with Rounded Corners"
-          />
-          {/* Imagen 5 poner la iamgen de room de la carpeta midu-images*/}
-
-
-
         </>
       )}
     </>

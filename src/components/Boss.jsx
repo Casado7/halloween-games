@@ -98,7 +98,7 @@ function Boss({ startGame, setStartGame, setPlayerName, playerChoices, setPlayer
         {/* Colocar la imagen de imagen cuya llave coincia con la imagen del nodo activo */}
         <AdvancedImage
           cldImg={imagen[dialogues[currentNodeIndex].imagen]
-            .resize(fill().width(250).height(250))
+            .resize(fill().width(400).height(400))
           }
           alt="Halloween Dark Filter"
         />

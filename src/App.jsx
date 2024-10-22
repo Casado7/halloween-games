@@ -54,11 +54,18 @@ function App() {
   }
   return (
     <div className="app-container">
-      {!startDialogue && !startGame && (
-        <WelcomePage setStartDialogue={setStartDialogue} setUploadResult={setUploadResult} cld={cld} uploadResult={uploadResult} />
+      {/* Pantalla de bienvenida, se muestra si no ha empezado el diálogo y el juego no ha comenzado */}
+      {!startDialogue && !startGame && isWinner === null && (
+        <WelcomePage
+          setStartDialogue={setStartDialogue}
+          setUploadResult={setUploadResult}
+          cld={cld}
+          uploadResult={uploadResult}
+        />
       )}
-      {/* Si startGame es false, mostrar el componente Boss */}
-      {startDialogue && !startGame && (
+
+      {/* Si el diálogo ha comenzado y el juego aún no, mostrar el componente de diálogo con el jefe */}
+      {startDialogue && !startGame && isWinner === null && (
         <div className="boss-container">
           <Boss
             startGame={startGame}
@@ -66,15 +73,33 @@ function App() {
             setPlayerName={setPlayerName}
             playerChoices={playerChoices}
             setPlayerChoices={setPlayerChoices}
-            cld={cld} />
+            cld={cld}
+          />
         </div>
       )}
 
-      {/* Si startGame es true, mostrar el componente DiceGame */}
-      {startGame && (
+      {/* Mostrar el juego si ha comenzado */}
+      {startGame && isWinner === null && (
         <div className="dicegame-container">
-          <DiceGame startGame={startGame} setStartGame={setStartGame} playerName={playerName} cld={cld} uploadResult={uploadResult} />
+          <DiceGame
+            startGame={startGame}
+            setStartGame={setStartGame}
+            setIsWinner={setIsWinner} // Determina el ganador
+            playerName={playerName}
+            cld={cld}
+            uploadResult={uploadResult}
+          />
         </div>
+      )}
+
+      {/* Mostrar la pantalla de final cuando el resultado esté definido (victoria o derrota) */}
+      {isWinner !== null && (
+        <EndPage
+          isWinner={isWinner}
+          cld={cld}
+          uploadResult={uploadResult}
+          handleResetGame={handleResetGame}
+        />
       )}
     </div>
 

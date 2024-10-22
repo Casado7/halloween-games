@@ -17,7 +17,7 @@ const UploadWidget = ({ setUploadResult }) => {
         });
     }, []);
     return (
-        <button onClick={() => widgetRef.current.open()}>Upload</button>
+        <button onClick={() => widgetRef.current.open()}>Subir Foto</button>
     );
 }
 export default UploadWidget;

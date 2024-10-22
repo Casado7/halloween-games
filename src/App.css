@@ -3,6 +3,7 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  
 }
 
 .logo {
@@ -45,6 +46,7 @@
   display: flex;
   justify-content: space-between; /* Espacio entre Boss y DiceGame */
   align-items: flex-start; /* Alinearlos arriba */
+  
 }
 
 

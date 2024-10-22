@@ -1,0 +1,52 @@
+.welcome-page {
+    background-color: #1a1a1a; /* Fondo oscuro */
+    color: #f5f5f5; /* Texto en blanco/gris claro */
+    text-align: center;
+    padding: 50px;
+    font-family: 'Creepster', cursive; /* Fuente de Halloween */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    font-size: 3rem;
+    color: #ff7518; /* Naranja Halloween */
+    text-shadow: 2px 2px 10px #000; /* Sombra para hacer el texto más siniestro */
+}
+
+p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #f5f5f5;
+}
+
+button {
+    background-color: #ff7518; /* Botón naranja */
+    border: none;
+    color: white;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+button:hover {
+    background-color: #e65c00; /* Cambio de color al pasar el cursor */
+}
+
+.image-preview {
+    margin-top: 20px;
+    max-width: 100%;
+    border: 3px solid #ff7518; /* Bordes acorde con la temática */
+    box-shadow: 0 0 10px rgba(255, 117, 24, 0.7); /* Brillo del borde */
+}
+
+
+
+h1, p {
+    animation: flicker 2s infinite; /* Efecto de parpadeo para dar ambiente */
+}

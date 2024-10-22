@@ -7,6 +7,7 @@ import CloudinaryTests from './components/CloudinaryTests';
 import Boss from './components/Boss';
 import { Cloudinary } from '@cloudinary/url-gen'
 import UploadWidget from './components/UploadWidget';
+import WelcomePage from './components/WelcomePage';
 
 
 const cld = new Cloudinary({
@@ -41,11 +42,7 @@ function App() {
   return (
     <div className="app-container">
       {!startDialogue && !startGame && (
-        <>
-          <UploadWidget setUploadResult={setUploadResult} />
-          <button onClick={() => setStartDialogue(true)}>Empezar</button>
-        </>
-
+        <WelcomePage setStartDialogue={setStartDialogue} setUploadResult={setUploadResult} cld={cld} uploadResult={uploadResult} />
       )}
       {/* Si startGame es false, mostrar el componente Boss */}
       {startDialogue && !startGame && (

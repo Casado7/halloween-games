@@ -4,7 +4,7 @@ const dialogues = {
         imagen: 'room',
         options: [
             { option: 'Intentar recordar quién eres', nextIndex: 1 },
-            { option: 'Saltar Historia', nextIndex: 16 } // Opción para saltar si el jugador quiere omitir la historia
+            { option: 'Saltar Historia', nextIndex: 14 } // Opción para saltar si el jugador quiere omitir la historia
         ]
     },
     1: { // Intentar recordar quién eres

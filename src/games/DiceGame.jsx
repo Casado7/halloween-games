@@ -2,9 +2,14 @@ import React, { useEffect, useState } from 'react';
 import Die from './DiceGameJs/Die'; // Importamos el nuevo componente
 import './DiceGame.css';
 import { AdvancedImage } from '@cloudinary/react'
-import { Resize, Effect,RoundCorners } from '@cloudinary/url-gen/actions'
+import { Resize, Effect, RoundCorners } from '@cloudinary/url-gen/actions'
 import { focusOn } from '@cloudinary/url-gen/qualifiers/gravity';
 import { face } from '@cloudinary/url-gen/qualifiers/focusOn';
+
+import useSound from 'use-sound'; // Para el sonido
+import diceSound from '../components/sounds/dice.mp3';
+import thudSound from '../components/sounds/thud.mp3';
+
 
 
 const initialBoard = () => Array(3).fill(Array(3).fill(null));
@@ -15,26 +20,31 @@ export default function DiceGame({ startGame, playerName, cld, uploadResult }) {
     const [rolledValue, setRolledValue] = useState(null);
     const [tempValue, setTempValue] = useState(null);
     const [isGameOver, setIsGameOver] = useState(false);
+    const [playDiceSound, { stop: stopDiceSound }] = useSound(diceSound, { volume: 0.2, interrupt: true });
+    const [playThudSound, { stop: stopThudSound }] = useSound(thudSound, { volume: 0.2, interrupt: true });
 
     // Función para tirar el dado
     const rollDice = () => {
         let count = 0;
+        playDiceSound()
         const interval = setInterval(() => {
             const randomRoll = Math.floor(Math.random() * 6) + 1;
             setTempValue(randomRoll); // Cambiar el valor temporal del dado para la animación
             count++;
 
-            if (count >= 10) { // Después de 10 intervalos (ajustar para controlar la duración de la animación)
+            if (count >= 9) { // Después de 10 intervalos (ajustar para controlar la duración de la animación)
                 clearInterval(interval); // Detener la animación
                 const finalRoll = Math.floor(Math.random() * 6) + 1; // Generar el valor definitivo del dado
                 setRolledValue(finalRoll); // Establecer el valor definitivo
                 setTempValue(null); // Limpiar el valor temporal
+                stopDiceSound(); // Detener el sonido del dado
             }
         }, 100); // Cambia el valor cada 100ms (puedes ajustar esto para cambiar la velocidad de la animación)
     };
 
     // Colocar el dado en la primera celda vacía de la columna del tablero del jugador
     // TODO: Deshabilitar la colocación si no es el turno del jugador
+    // Colocar el dado en la primera celda vacía de la columna del tablero del jugador
     const placeDie = (col) => {
         if (rolledValue) {
             console.log(`Placing die ${rolledValue} in column ${col}`);
@@ -46,6 +56,7 @@ export default function DiceGame({ startGame, playerName, cld, uploadResult }) {
                 if (board[row][col] === null) {
                     board[row][col] = rolledValue;
                     placed = true;
+                    playThudSound();  // Reproduce el sonido al colocar el dado
                     break;
                 }
             }
@@ -73,6 +84,7 @@ export default function DiceGame({ startGame, playerName, cld, uploadResult }) {
             console.log('Roll the dice first!');
         }
     };
+
 
     // Comprobar si el juego ha terminado
     const checkGameOver = (boards) => {
@@ -256,18 +268,18 @@ export default function DiceGame({ startGame, playerName, cld, uploadResult }) {
                         {/* poner imagen solo si hay uploadresult */}
                         {uploadResult && uploadResult?.uploadInfo?.secure_url && (
                             <AdvancedImage
-                            style={{borderRadius: '50%'}}
-                            cldImg={cld.image(uploadResult.uploadInfo.public_id)
-                              .resize(
-                                Resize.thumbnail()  // Redimensionar a un thumbnail (miniatura)
-                                  .width(150)
-                                  .height(150)
-                                  .gravity(focusOn(face()))  // Enfocar en el rostro
-                              )
+                                style={{ borderRadius: '50%' }}
+                                cldImg={cld.image(uploadResult.uploadInfo.public_id)
+                                    .resize(
+                                        Resize.thumbnail()  // Redimensionar a un thumbnail (miniatura)
+                                            .width(150)
+                                            .height(150)
+                                            .gravity(focusOn(face()))  // Enfocar en el rostro
+                                    )
 
-                            }
-                            alt="Face Focus with Rounded Corners"
-                          />
+                                }
+                                alt="Face Focus with Rounded Corners"
+                            />
                         )}
                     </div>
                 </div>

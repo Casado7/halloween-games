@@ -8,6 +8,7 @@ import Boss from './components/Boss';
 import { Cloudinary } from '@cloudinary/url-gen'
 import UploadWidget from './components/UploadWidget';
 import WelcomePage from './components/WelcomePage';
+import EndPage from './components/EndPage';
 
 
 const cld = new Cloudinary({
@@ -21,6 +22,7 @@ function App() {
   const [startDialogue, setStartDialogue] = useState(false);
   const [uploadResult, setUploadResult] = useState(null);
   const [playerName, setPlayerName] = useState('Jugador 1');
+  const [isWinner, setIsWinner] = useState(null);
   const [playerChoices, setPlayerChoices] = useState({
     class: null, // mago, caballero, otra cosa
     bossType: null // zombie, esqueleto, demonio
@@ -39,6 +41,17 @@ function App() {
     }
   }
     , [startDialogue]);
+
+  const handleResetGame = () => {
+    setStartGame(false);
+    setStartDialogue(false);
+    setUploadResult(null);
+    setPlayerName('Jugador 1');
+    setPlayerChoices({
+      class: null,
+      bossType: null
+    });
+  }
   return (
     <div className="app-container">
       {!startDialogue && !startGame && (

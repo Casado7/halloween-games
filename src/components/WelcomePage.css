@@ -4,7 +4,6 @@
     text-align: center;
     padding: 50px;
     font-family: 'Creepster', cursive; /* Fuente de Halloween */
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;

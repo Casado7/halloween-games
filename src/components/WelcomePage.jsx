@@ -17,17 +17,23 @@ function WelcomePage({ setStartDialogue, setUploadResult, cld, uploadResult }) {
 
 
             <UploadWidget setUploadResult={setUploadResult} />
-
-            {uploadResult && uploadResult?.uploadInfo?.secure_url && (
+            {!uploadResult?.uploadInfo?.secure_url ? (
+                // Muestra el place holder si no hay imagen subida
+                <AdvancedImage
+                    cldImg={cld.image('personPlaceHolder_hsgh4b')
+                        .resize(fill().width(300).height(300))}  // Redimensionar el place holder
+                    alt="imagen de muestra"
+                />
+            ) : (
+                // Muestra la imagen subida si está disponible
                 <AdvancedImage
                     cldImg={cld.image(uploadResult.uploadInfo.public_id)
                         .resize(
-                            Resize.thumbnail()  // Redimensionar a un thumbnail (miniatura)
+                            thumbnail()  // Redimensionar a un thumbnail (miniatura)
                                 .width(300)
                                 .height(300)
                                 .gravity(focusOn(face()))  // Enfocar en el rostro
                         )
-
                     }
                     alt="imagen subida"
                 />

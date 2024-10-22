@@ -10,8 +10,8 @@ import UploadWidget from './UploadWidget'
 
 
 
-function CloudinaryTests({ cld }) {
-  const [uploadResult, setUploadResult] = useState(null);
+function CloudinaryTests({ cld, uploadResult }) {
+
   useEffect(() => {
     console.log("result", uploadResult)
   }, [uploadResult])
@@ -19,8 +19,6 @@ function CloudinaryTests({ cld }) {
 
   return (
     <>
-      <UploadWidget setUploadResult={setUploadResult} />
-
       {uploadResult && uploadResult?.uploadInfo?.secure_url && (
         <>
           <h2>Imagen cargada:</h2>

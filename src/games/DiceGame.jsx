@@ -43,8 +43,6 @@ export default function DiceGame({ startGame, playerName, cld, uploadResult }) {
     };
 
     // Colocar el dado en la primera celda vacía de la columna del tablero del jugador
-    // TODO: Deshabilitar la colocación si no es el turno del jugador
-    // Colocar el dado en la primera celda vacía de la columna del tablero del jugador
     const placeDie = (col) => {
         if (rolledValue) {
             console.log(`Placing die ${rolledValue} in column ${col}`);
@@ -84,7 +82,6 @@ export default function DiceGame({ startGame, playerName, cld, uploadResult }) {
             console.log('Roll the dice first!');
         }
     };
-
 
     // Comprobar si el juego ha terminado
     const checkGameOver = (boards) => {

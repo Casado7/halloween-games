@@ -14,7 +14,7 @@ import thudSound from '../components/sounds/thud.mp3';
 
 const initialBoard = () => Array(3).fill(Array(3).fill(null));
 
-export default function DiceGame({ startGame, playerName, cld, uploadResult }) {
+export default function DiceGame({ startGame, playerName, cld, uploadResult, setIsWinner }) {
     const [playerBoards, setPlayerBoards] = useState([initialBoard(), initialBoard()]);
     const [turn, setTurn] = useState(0); // 0 para el jugador 1, 1 para el jugador 2
     const [rolledValue, setRolledValue] = useState(null);
@@ -304,8 +304,9 @@ export default function DiceGame({ startGame, playerName, cld, uploadResult }) {
                     <button onClick={() => setPlayerBoards([initialBoard(), initialBoard()])}>
                         Jugar de nuevo
                     </button>
-
-
+                    <button onClick={() => setIsWinner(player1Score > player2Score)}>
+                        Terminar juego
+                    </button>
                 </div>
             )}
         </div>

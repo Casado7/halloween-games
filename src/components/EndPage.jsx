@@ -1,7 +1,7 @@
 import React from 'react';
 import './EndPage.css'; // Puedes personalizar esta hoja de estilos para darle un toque final terrorífico
 
-function EndPage({ isWinner }) {
+function EndPage({ isWinner, handleResetGame, playerChoices, uploadResult, cld }) {
     return (
         <div className="end-page">
             {isWinner ? (
@@ -16,8 +16,12 @@ function EndPage({ isWinner }) {
                 </div>
             )}
 
-            <button>
+            <button onClick={handleResetGame}>
                 <i className="fas fa-redo"></i> Jugar de nuevo
+            </button>
+            {/* console.log */}
+            <button onClick={ () => console.log(playerChoices, uploadResult) }>
+                Ver elecciones
             </button>
         </div>
     );

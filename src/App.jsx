@@ -46,6 +46,7 @@ function App() {
     setStartGame(false);
     setStartDialogue(false);
     setUploadResult(null);
+    setIsWinner(null);
     setPlayerName('Jugador 1');
     setPlayerChoices({
       class: null,

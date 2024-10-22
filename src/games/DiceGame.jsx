@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import Die from './DiceGameJs/Die'; // Importamos el nuevo componente
 import './DiceGame.css';
+import { AdvancedImage } from '@cloudinary/react'
+import { Resize, Effect,RoundCorners } from '@cloudinary/url-gen/actions'
+import { focusOn } from '@cloudinary/url-gen/qualifiers/gravity';
+import { face } from '@cloudinary/url-gen/qualifiers/focusOn';
+
 
 const initialBoard = () => Array(3).fill(Array(3).fill(null));
 
-export default function DiceGame({ startGame, playerName }) {
+export default function DiceGame({ startGame, playerName, cld, uploadResult }) {
     const [playerBoards, setPlayerBoards] = useState([initialBoard(), initialBoard()]);
     const [turn, setTurn] = useState(0); // 0 para el jugador 1, 1 para el jugador 2
     const [rolledValue, setRolledValue] = useState(null);
@@ -248,6 +253,22 @@ export default function DiceGame({ startGame, playerName }) {
                         <div className="scores">
                             <h3>{player1Score}</h3>
                         </div>
+                        {/* poner imagen solo si hay uploadresult */}
+                        {uploadResult && uploadResult?.uploadInfo?.secure_url && (
+                            <AdvancedImage
+                            style={{borderRadius: '50%'}}
+                            cldImg={cld.image(uploadResult.uploadInfo.public_id)
+                              .resize(
+                                Resize.thumbnail()  // Redimensionar a un thumbnail (miniatura)
+                                  .width(150)
+                                  .height(150)
+                                  .gravity(focusOn(face()))  // Enfocar en el rostro
+                              )
+
+                            }
+                            alt="Face Focus with Rounded Corners"
+                          />
+                        )}
                     </div>
                 </div>
 
